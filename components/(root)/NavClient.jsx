@@ -2,12 +2,14 @@
 "use client"
 
 import { logOut } from "@/app/actions/authActions"
+import { useApp } from "@/app/contexts/AppContext";
 import Link from "next/link"
 import { useState, useEffect } from "react"
 
 export default function NavClient({ session }) {
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const navLinks = ["Home", "Solutions", "Product", "Resources", "Pricing"]
+  const { isMenuOpen, setIsMenuOpen } = useApp();
+  // const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const navLinks = ["Home", "Services", "How it Works", "About", "Contact"]
 
   useEffect(() => {
     document.body.style.overflow = isMenuOpen ? "hidden" : "unset"
@@ -27,13 +29,14 @@ export default function NavClient({ session }) {
 
         <div className="hidden lg:flex items-center gap-8">
           {navLinks.map((link) => (
-            <a
+            
+            <Link
               key={link}
-              href="#"
+              href={link === "Home" ? "/" : `${link.toLowerCase().replace(/\s+/g, "-")}`}
               className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
             >
               {link}
-            </a>
+            </Link>
           ))}
         </div>
 

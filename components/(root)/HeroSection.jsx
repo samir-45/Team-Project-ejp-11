@@ -1,7 +1,7 @@
 "use client";
 
+import { useApp } from "@/app/contexts/AppContext";
 import React, { useState, useEffect } from "react";
-import Nav from "./nav";
 const StackerLogo = ({
     className
 }) => <svg className={className} viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -29,7 +29,10 @@ const CloseIcon = ({
         <line x1="6" y1="6" x2="18" y2="18"></line>
     </svg>;
 const HeroSection = () => {
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+    const { isMenuOpen, setIsMenuOpen } = useApp();
+
+    // const [isMenuOpen, setIsMenuOpen] = useState(false);
     const navLinks = ["Home", "Solutions", "Product", "Resources", "Pricing"];
     useEffect(() => {
         if (isMenuOpen) {
@@ -41,13 +44,13 @@ const HeroSection = () => {
             document.body.style.overflow = "unset";
         };
     }, [isMenuOpen]);
-    return <div className="bg-gray-50 dark:bg-black font-sans text-gray-800 dark:text-gray-200 w-full">
-        <div className="w-full">
-            {/* Navbar */}
-            <Nav></Nav>
 
-            <div className={`lg:hidden fixed inset-0 z-40 transition-opacity duration-300 ${isMenuOpen ? "opacity-100" : "opacity-0 pointer-events-none"}`}>
-                <div className="absolute inset-0 bg-black/60 dark:bg-black/80" onClick={() => setIsMenuOpen(false)}></div>
+    return <div className="bg-gray-50 min-h-screen dark:bg-black font-sans text-gray-800 dark:text-gray-200 w-full">
+       
+
+            {/* On off menu for little devices */}
+            {/* <div className={`lg:hidden fixed inset-0 z-40 transition-opacity duration-300 ${isMenuOpen ? "opacity-100" : "opacity-0 pointer-events-none"}`}>
+                <div className="absolute inset-0 bg-black/60 dark:bg-black/80" onClick={() => setIsMenuOpen(false)}>hehe</div>
 
                 <div className={`relative z-50 bg-white dark:bg-gray-900 h-full w-4/5 max-w-sm ml-auto p-6 flex flex-col transition-transform duration-300 ease-in-out ${isMenuOpen ? "translate-x-0" : "translate-x-full"}`}>
                     <div className="flex items-center justify-between mb-8">
@@ -67,9 +70,10 @@ const HeroSection = () => {
                         </a>
                     </nav>
                 </div>
-            </div>
+            </div> */}
 
-            <main className="relative flex-1 flex items-center justify-center text-center w-full">
+            {/* Main content of hero section */}
+            <main className="relative flex-1 flex min-h-screen items-center justify-center text-center w-full">
                 <div className="relative flex flex-col items-center justify-center py-10 sm:py-16 px-4 max-w-5xl mx-auto">
                     <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 dark:text-white leading-tight max-w-4xl">
                         Where your{" "}
@@ -86,7 +90,7 @@ const HeroSection = () => {
                     </button>
                 </div>
             </main>
-        </div>
+        
     </div>;
 };
 export default HeroSection;
