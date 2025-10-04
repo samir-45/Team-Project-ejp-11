@@ -1,5 +1,6 @@
 'use client';
 
+import { registerUser } from '@/app/actions/auth/registerUser';
 import GoogleSigninBtn from '@/components/(root)/GoogleSigninBtn';
 import Link from 'next/link';
 import React, { useState } from 'react';
@@ -37,10 +38,18 @@ const RegisterPage = () => {
   const [password, setPassword] = useState('');
   const [fullName, setFullName] = useState('');
   const [isChecked, setIsChecked] = useState(false);
+ 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
-
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    const name = fullName;
+    const userEmail = email;
+    const userPassword = password;
+    registerUser(name,userEmail, userPassword);
+    console.log("client",name,userEmail,userPassword);
+  }
 
 
   return <div className="flex items-center min-h-screen justify-center">
@@ -60,7 +69,7 @@ const RegisterPage = () => {
           </p>
         </div>
 
-        <form className="space-y-4">
+        <form onSubmit={handleRegister} className="space-y-4">
           { }
           <div className="space-y-2">
             <input type="text" value={fullName} onChange={e => setFullName(e.target.value)} placeholder="Enter your full name" className="signin-input w-full px-3 py-2 bg-white dark:bg-black border border-gray-200 dark:border-gray-800 rounded-md text-sm text-gray-900 dark:text-gray-100 placeholder:text-gray-500 dark:placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-900 dark:focus:ring-gray-100 focus:border-transparent transition-all duration-200" />
