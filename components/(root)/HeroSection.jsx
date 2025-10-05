@@ -2,14 +2,7 @@
 
 import { useApp } from "@/app/contexts/AppContext";
 import React, { useState, useEffect } from "react";
-const StackerLogo = ({
-    className
-}) => <svg className={className} viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M16 0C7.163 0 0 7.163 0 16s7.163 16 16 16 16-7.163 16-16S24.837 0 16 0z" fill="#4F46E5" />
-        <path d="M19.333 9.333h-6.666v1.334h6.666V9.333z" fill="#fff" />
-        <path d="M22.667 15.333h-10v1.334h10v-1.334z" fill="#fff" />
-        <path d="M16 21.333h-3.333v1.334H16v-1.334z" fill="#fff" />
-    </svg>;
+
 const PlayIcon = ({
     className
 }) => <svg className={className} viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -30,10 +23,8 @@ const CloseIcon = ({
     </svg>;
 const HeroSection = () => {
 
-    const { isMenuOpen, setIsMenuOpen } = useApp();
+    const { isMenuOpen } = useApp();
 
-    // const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const navLinks = ["Home", "Solutions", "Product", "Resources", "Pricing"];
     useEffect(() => {
         if (isMenuOpen) {
             document.body.style.overflow = "hidden";
