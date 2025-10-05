@@ -46,7 +46,7 @@ export default function ProjectsSection() {
         </div>
 
         {/* Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 px-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 px-8">
           {projects.map((project, index) => (
             <div
               key={index}

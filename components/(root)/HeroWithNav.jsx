@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-export default function HeroWithNav() {
+export default function HeroWithNav({ session }) {
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
@@ -28,7 +28,7 @@ export default function HeroWithNav() {
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(900px_380px_at_70%_40%,rgba(255,115,0,0.10),transparent_65%)]" />
 
       {/* NAVBAR (internal padding only) */}
-      <header className="absolute inset-x-0 top-0 z-50">
+      {/* <header className="absolute inset-x-0 top-0 z-50">
         <div className="px-4 pt-4">
           <div
             className="
@@ -39,8 +39,10 @@ export default function HeroWithNav() {
               px-4 sm:px-6
             "
           >
-            <div className="navbar min-h-16 text-white">
-              {/* Brand */}
+            <div className="navbar min-h-16 text-white  --Brand--">
+
+
+
               <div className="navbar-start">
                 <Link
                   href="/"
@@ -55,11 +57,13 @@ export default function HeroWithNav() {
                 </Link>
               </div>
 
-              {/* Desktop links */}
-              <nav className="navbar-center hidden lg:flex">
+
+
+
+              <nav className="navbar-center hidden lg:flex --Desktop links--">
                 <ul className="menu menu-horizontal gap-1 px-1">
                   {links.map((l) => {
-                    const href = l === "Home" ? "/" : `/${l.toLowerCase()}`;
+                    const href = l === "Home" ? "/" : `/${l.toLowerCase().replace(/\s+/g, "-")}`;
                     return (
                       <li key={l}>
                         <Link
@@ -74,18 +78,44 @@ export default function HeroWithNav() {
                 </ul>
               </nav>
 
-              {/* Right CTA + mobile toggle */}
-              <div className="navbar-end gap-2">
-                <Link
-                  href="/contact"
-                  className="
+
+
+
+              <div className="navbar-end gap-2 Right CTA + mobile toggle">
+
+
+                {session?.user ? (
+                  <>
+                    <span className="hidden md:inline-flex items-center h-9 px-4 rounded-full border border-dashed border-orange-500/50 font-semibold">
+                      {session.user.name}
+                    </span>
+                    <form action={logOut} className="hidden lg:block">
+                      <button
+                        type="submit"
+                        className="
                     hidden lg:inline-flex h-10 min-h-0 items-center rounded-full
                     bg-gradient-to-r from-orange-500 to-amber-500 px-5
                     font-semibold text-white shadow-md hover:opacity-95
                   "
-                >
-                  Get Started
-                </Link>
+                      >
+                        Logout
+                      </button>
+                    </form>
+                  </>
+                ) : (
+                  <Link
+                    href="/register"
+                    className="
+                    hidden lg:inline-flex h-10 min-h-0 items-center rounded-full
+                    bg-gradient-to-r from-orange-500 to-amber-500 px-5
+                    font-semibold text-white shadow-md hover:opacity-95
+                  "
+                  >
+                    Get Started
+                  </Link>
+                )}
+
+
                 <button
                   aria-label="Open menu"
                   onClick={() => setMenuOpen(true)}
@@ -109,7 +139,7 @@ export default function HeroWithNav() {
             </div>
           </div>
         </div>
-      </header>
+      </header> */}
 
       {/* HERO CONTENT */}
       <div className="relative z-10 mx-auto max-w-6xl px-6 pt-32 pb-16 sm:pt-36 sm:pb-20 lg:pt-40 lg:pb-24">
@@ -207,7 +237,7 @@ export default function HeroWithNav() {
       </div>
 
       {/* Mobile drawer */}
-      {menuOpen && (
+      {/* {menuOpen && (
         <div className="fixed inset-0 z-[60]">
           <div
             className="absolute inset-0 bg-black/60 backdrop-blur-sm"
@@ -226,7 +256,7 @@ export default function HeroWithNav() {
             </div>
             <ul className="menu p-4 gap-2">
               {links.map((l) => {
-                const href = l === "Home" ? "/" : `/${l.toLowerCase()}`;
+                const href = l === "Home" ? "/" : `/${l.toLowerCase().replace(/\s+/g, "-")}`;
                 return (
                   <li key={l}>
                     <Link
@@ -241,18 +271,37 @@ export default function HeroWithNav() {
               })}
             </ul>
             <div className="p-4 pt-0">
-              <Link
-                href="/contact"
-                onClick={() => setMenuOpen(false)}
-                className="btn w-full rounded-full bg-gradient-to-r from-orange-500 to-amber-500 text-white border-0"
-              >
-                Get Started
-              </Link>
+
+              {session?.user ? (
+                <>
+                  <span className="hidden md:inline-flex items-center h-9 px-4 rounded-full border border-dashed border-orange-500/50 font-semibold">
+                    {session.user.name}
+                  </span>
+                  <form action={logOut} className="hidden lg:hidden">
+                    <button
+                      type="submit"
+                      onClick={() => setMenuOpen(false)}
+                      className="btn w-full rounded-full bg-gradient-to-r from-orange-500 to-amber-500 text-white border-0"
+                    >
+                      Logout
+                    </button>
+                  </form>
+                </>
+              ) : (
+                <Link
+                  href="/register"
+                  onClick={() => setMenuOpen(false)}
+                  className="btn w-full rounded-full bg-gradient-to-r from-orange-500 to-amber-500 text-white border-0"
+                >
+                  Get Started
+                </Link>
+              )}
+
               <div className="py-4" />
             </div>
           </div>
         </div>
-      )}
+      )} */}
     </section>
   );
 }

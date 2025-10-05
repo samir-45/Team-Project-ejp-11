@@ -8,8 +8,8 @@ import WhyChooseUsSection from "@/components/(root)/WhyChooseUsSection";
 
 export default async function Home() {
   return (
-    <div className="min-h-screen mx-auto max-w-10xl">
-      <div className=" px-4 sm:px-6 lg:px-8 mt-5 mb-30">
+    <div className="min-h-screen mx-auto ">
+      <div className=" px-4 sm:px-6 mt-5 mb-30">
         <HeroWithNav />
       </div>
       {/* Middle components and elements */}
@@ -24,10 +24,6 @@ export default async function Home() {
       </div>
       <div>
         <WhyChooseUsSection />
-      </div>
-      {/* Middle components and elements end */}
-      <div className="px-4 sm:px-6 lg:px-8 py-5">
-        <Footer />
       </div>
     </div>
   );

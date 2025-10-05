@@ -40,7 +40,7 @@ export default function AboutUsSection() {
 
   return (
     <section className="py-12 md:py-24">
-      <div className="mx-auto px-4 sm:px-6 lg:px-12">
+      <div className="mx-auto px-4 sm:px-6 lg:px-8">
         {/* === Header & Article Content Block === */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center mb-16">
           {/* Left Side: Text Content (Matching the image's text style) */}
