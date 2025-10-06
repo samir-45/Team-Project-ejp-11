@@ -2,14 +2,7 @@
 
 import { useApp } from "@/app/contexts/AppContext";
 import React, { useState, useEffect } from "react";
-const StackerLogo = ({
-    className
-}) => <svg className={className} viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M16 0C7.163 0 0 7.163 0 16s7.163 16 16 16 16-7.163 16-16S24.837 0 16 0z" fill="#4F46E5" />
-        <path d="M19.333 9.333h-6.666v1.334h6.666V9.333z" fill="#fff" />
-        <path d="M22.667 15.333h-10v1.334h10v-1.334z" fill="#fff" />
-        <path d="M16 21.333h-3.333v1.334H16v-1.334z" fill="#fff" />
-    </svg>;
+
 const PlayIcon = ({
     className
 }) => <svg className={className} viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -30,10 +23,8 @@ const CloseIcon = ({
     </svg>;
 const HeroSection = () => {
 
-    const { isMenuOpen, setIsMenuOpen } = useApp();
+    const { isMenuOpen } = useApp();
 
-    // const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const navLinks = ["Home", "Solutions", "Product", "Resources", "Pricing"];
     useEffect(() => {
         if (isMenuOpen) {
             document.body.style.overflow = "hidden";
@@ -47,30 +38,6 @@ const HeroSection = () => {
 
     return <div className="bg-gray-50 min-h-screen dark:bg-black font-sans text-gray-800 dark:text-gray-200 w-full">
        
-
-            {/* On off menu for little devices */}
-            {/* <div className={`lg:hidden fixed inset-0 z-40 transition-opacity duration-300 ${isMenuOpen ? "opacity-100" : "opacity-0 pointer-events-none"}`}>
-                <div className="absolute inset-0 bg-black/60 dark:bg-black/80" onClick={() => setIsMenuOpen(false)}>hehe</div>
-
-                <div className={`relative z-50 bg-white dark:bg-gray-900 h-full w-4/5 max-w-sm ml-auto p-6 flex flex-col transition-transform duration-300 ease-in-out ${isMenuOpen ? "translate-x-0" : "translate-x-full"}`}>
-                    <div className="flex items-center justify-between mb-8">
-                        <span className="font-bold text-2xl text-gray-900 dark:text-white">
-                            Menu
-                        </span>
-                        <button onClick={() => setIsMenuOpen(false)} className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">
-                            <CloseIcon className="h-6 w-6" />
-                        </button>
-                    </div>
-                    <nav className="flex flex-col items-start gap-5">
-                        {navLinks.map(link => <a key={link} href="#" className="text-gray-800 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors text-lg w-full text-left py-2">
-                            {link}
-                        </a>)}
-                        <a href="#" className="w-full mt-6 text-center bg-indigo-600 dark:bg-indigo-500 text-white font-semibold px-5 py-3 rounded-lg hover:bg-indigo-700 dark:hover:bg-indigo-600 transition-colors shadow-sm">
-                            Get Started
-                        </a>
-                    </nav>
-                </div>
-            </div> */}
 
             {/* Main content of hero section */}
             <main className="relative flex-1 flex min-h-screen items-center justify-center text-center w-full">

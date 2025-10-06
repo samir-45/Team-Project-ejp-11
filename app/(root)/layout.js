@@ -1,7 +1,6 @@
-import Footer from '@/components/(root)/Footer'
-import Nav from '@/components/(root)/nav'
-import SideNav from '@/components/(root)/SideNav'
-import React from 'react'
+import Footer from "@/components/(root)/Footer";
+import Nav from "@/components/(root)/nav";
+import React from "react";
 
 export default function RootLayout({ children }) {
   return (
@@ -9,19 +8,15 @@ export default function RootLayout({ children }) {
       {/* Navbar at top */}
       <header className="z-40">
         <Nav />
-      <SideNav></SideNav>
       </header>
 
-
       {/* Main content expands to fill space */}
-      <main className="flex-grow">
-        {children}
-      </main>
+      <main className="flex-grow min-h-screen">{children}</main>
 
       {/* Footer always at bottom */}
-      <footer>
+      <footer className="px-4 sm:px-6 py-5">
         <Footer />
       </footer>
     </div>
-  )
+  );
 }
