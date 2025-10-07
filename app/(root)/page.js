@@ -1,5 +1,6 @@
 // homepage components
 import AboutUsSection from "@/components/(root)/AboutUsSection";
+import FaqAskSection from "@/components/(root)/FaqAskSection";
 import FeaturedServices from "@/components/(root)/FeaturedServices";
 import Footer from "@/components/(root)/Footer";
 import HeroWithNav from "@/components/(root)/HeroWithNav";
@@ -24,6 +25,9 @@ export default async function Home() {
       </div>
       <div>
         <WhyChooseUsSection />
+      </div>
+      <div>
+        <FaqAskSection />
       </div>
     </div>
   );
