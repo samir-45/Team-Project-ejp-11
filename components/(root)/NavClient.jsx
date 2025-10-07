@@ -14,11 +14,25 @@ export default function NavClient({ session }) {
     }
   })();
 
+  const [userData, setUserData] = useState(null);
+
   const [fallbackOpen, setFallbackOpen] = useState(false);
   const isMenuOpen = app?.isMenuOpen ?? fallbackOpen;
   const setIsMenuOpen = app?.setIsMenuOpen ?? setFallbackOpen;
 
   const links = ["Home", "About", "Services", "Projects", "Contact"];
+
+  // console.log("Session in NavClient:", session.user);
+
+  useEffect(() => {
+    if (session?.user?.email) {
+      // fetch the user data from your API
+      fetch(`/api/users?email=${session.user.email}`)
+        .then(res => res.json())
+        .then(data => setUserData(data))
+        .catch(err => console.error(err));
+    }
+  }, [session]);
 
   useEffect(() => {
     document.body.style.overflow = isMenuOpen ? "hidden" : "unset";
@@ -26,6 +40,9 @@ export default function NavClient({ session }) {
       document.body.style.overflow = "unset";
     };
   }, [isMenuOpen]);
+
+  // console.log("User Data in NavClient:", userData);
+
 
   return (
     <section>
@@ -97,6 +114,16 @@ export default function NavClient({ session }) {
                     <span className="hidden md:inline-flex items-center h-9 px-4 rounded-full border border-dashed border-orange-500/50 font-semibold">
                       {session.user.name}
                     </span>
+
+                    {userData?.role ?
+                      <span className="hidden md:inline-flex items-center h-9 px-4 rounded-full border border-dashed border-orange-500/50 font-semibold">
+                        {userData?.role}
+                      </span> : <span className="hidden md:inline-flex items-center h-9 px-4 rounded-full border border-dashed border-orange-500/50 font-semibold">
+                        user
+                      </span>
+                    }
+
+
                     <form action={logOut} className="hidden lg:block">
                       <button
                         type="submit"
