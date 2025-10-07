@@ -13,8 +13,8 @@ export default function HeroWithNav({ session }) {
     };
   }, [menuOpen]);
 
-  const links = ["Home", "About", "Services", "Projects", "Contact"];
-
+  const links = ["Home", "About", "Services", "Projects", "Contact","Dashboard"];
+  
   return (
     <section
       className="
@@ -26,7 +26,6 @@ export default function HeroWithNav({ session }) {
       {/* background: clean dark gradient + super soft orange glow */}
       <div className="absolute inset-0 bg-gradient-to-b from-[#0b0b0f] via-[#111113] to-[#0a0a0b] rounded-3xl" />
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(900px_380px_at_70%_40%,rgba(255,115,0,0.10),transparent_65%)]" />
-
 
       {/* HERO CONTENT */}
       <div className="relative z-10 mx-auto max-w-6xl px-6 pt-32 pb-16 sm:pt-36 sm:pb-20 lg:pt-40 lg:pb-24">
@@ -122,7 +121,6 @@ export default function HeroWithNav({ session }) {
           </div>
         </div>
       </div>
-
     </section>
   );
 }
