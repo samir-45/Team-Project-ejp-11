@@ -2,7 +2,7 @@
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import Google from "next-auth/providers/google";
-import dbConnect, { collectionNamesObj } from "@/lib/dbConnect"; // ✅ must exist
+import dbConnect, { collectionNamesObj } from "@/lib/dbConnect";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
@@ -13,7 +13,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         password: { label: "Password", type: "password" },
       },
       authorize: async (credentials) => {
-        // ✅ Connect to DB
+        // Connect to DB
         const usersCollection = await dbConnect(collectionNamesObj.usersCollection);
         const user = await usersCollection.findOne({ email: credentials.email });
 
@@ -34,5 +34,5 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     signIn: "/login",
   },
 
-  secret: process.env.AUTH_SECRET, // ✅ must be in your .env.local
+  secret: process.env.AUTH_SECRET,
 });
