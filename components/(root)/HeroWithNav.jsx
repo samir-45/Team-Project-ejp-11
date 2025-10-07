@@ -14,8 +14,7 @@ export default function HeroWithNav({ session }) {
   }, [menuOpen]);
 
   const links = ["Home", "About", "Services", "Projects", "Contact","Dashboard"];
-
-export default function HeroWithNav() {
+  
   return (
     <section
       className="
