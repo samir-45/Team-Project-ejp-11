@@ -1,8 +1,20 @@
 "use client";
 
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
-export default function HeroWithNav() {
+export default function HeroWithNav({ session }) {
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? "hidden" : "unset";
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [menuOpen]);
+
+  const links = ["Home", "About", "Services", "Projects", "Contact","Dashboard"];
+  
   return (
     <section
       className="

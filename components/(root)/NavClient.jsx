@@ -1,4 +1,3 @@
-// components/NavClient.jsx
 "use client";
 
 import Link from "next/link";
@@ -29,7 +28,6 @@ export default function NavClient({ session }) {
   }, [isMenuOpen]);
 
   return (
-
     <section>
       <header className="absolute inset-x-0 top-5 max-w-19/20 mx-auto z-50">
         <div className="px-4 pt-4">
@@ -62,7 +60,8 @@ export default function NavClient({ session }) {
               <nav className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal gap-1 px-1">
                   {links.map((l) => {
-                    const href = l === "Home" ? "/" : `/${l.toLowerCase().replace(/\s+/g, "-")}`;
+                    const href =
+                      l === "Home" ? "/" : `/${l.toLowerCase().replace(/\s+/g, "-")}`;
                     return (
                       <li key={l}>
                         <Link
@@ -75,12 +74,24 @@ export default function NavClient({ session }) {
                     );
                   })}
                 </ul>
+
+                {/* Dashboard link (visible only when logged in) */}
+                {session?.user && (
+                  <ul className="menu menu-horizontal gap-1 px-1">
+                    <li>
+                      <Link
+                        href="/dashboard"
+                        className="btn btn-ghost btn-sm rounded-full text-[15px] tracking-tight hover:bg-orange-500/10 hover:text-orange-400"
+                      >
+                        Dashboard
+                      </Link>
+                    </li>
+                  </ul>
+                )}
               </nav>
 
               {/* Right CTA + mobile toggle */}
               <div className="navbar-end gap-2">
-
-
                 {session?.user ? (
                   <>
                     <span className="hidden md:inline-flex items-center h-9 px-4 rounded-full border border-dashed border-orange-500/50 font-semibold">
@@ -90,10 +101,10 @@ export default function NavClient({ session }) {
                       <button
                         type="submit"
                         className="
-                    hidden lg:inline-flex h-10 min-h-0 items-center rounded-full
-                    bg-gradient-to-r from-orange-500 to-amber-500 px-5
-                    font-semibold text-white shadow-md hover:opacity-95
-                  "
+                          hidden lg:inline-flex h-10 min-h-0 items-center rounded-full
+                          bg-gradient-to-r from-orange-500 to-amber-500 px-5
+                          font-semibold text-white shadow-md hover:opacity-95
+                        "
                       >
                         Logout
                       </button>
@@ -103,15 +114,14 @@ export default function NavClient({ session }) {
                   <Link
                     href="/register"
                     className="
-                    hidden lg:inline-flex h-10 min-h-0 items-center rounded-full
-                    bg-gradient-to-r from-orange-500 to-amber-500 px-5
-                    font-semibold text-white shadow-md hover:opacity-95
-                  "
+                      hidden lg:inline-flex h-10 min-h-0 items-center rounded-full
+                      bg-gradient-to-r from-orange-500 to-amber-500 px-5
+                      font-semibold text-white shadow-md hover:opacity-95
+                    "
                   >
                     Get Started
                   </Link>
                 )}
-
 
                 <button
                   aria-label="Open menu"
@@ -138,7 +148,6 @@ export default function NavClient({ session }) {
         </div>
       </header>
 
-
       {/* Mobile drawer */}
       {isMenuOpen && (
         <div className="fixed inset-0 z-[60]">
@@ -159,7 +168,8 @@ export default function NavClient({ session }) {
             </div>
             <ul className="menu p-4 gap-2">
               {links.map((l) => {
-                const href = l === "Home" ? "/" : `/${l.toLowerCase().replace(/\s+/g, "-")}`;
+                const href =
+                  l === "Home" ? "/" : `/${l.toLowerCase().replace(/\s+/g, "-")}`;
                 return (
                   <li key={l}>
                     <Link
@@ -173,8 +183,23 @@ export default function NavClient({ session }) {
                 );
               })}
             </ul>
-            <div className="p-4 pt-0">
 
+            {/* Dashboard link for mobile */}
+            {session?.user && (
+              <ul className="menu p-4 pt-0">
+                <li>
+                  <Link
+                    href="/dashboard"
+                    onClick={() => setIsMenuOpen(false)}
+                    className="rounded-full text-base font-medium hover:bg-orange-500/10 hover:text-orange-400"
+                  >
+                    Dashboard
+                  </Link>
+                </li>
+              </ul>
+            )}
+
+            <div className="p-4 pt-0">
               {session?.user ? (
                 <>
                   <span className="flex md:hidden mx-auto w-full text-center my-4 items-center h-9 px-4 rounded-full border border-dashed border-orange-500/50 font-semibold">
@@ -199,17 +224,11 @@ export default function NavClient({ session }) {
                   Get Started
                 </Link>
               )}
-
               <div className="py-4" />
             </div>
           </div>
         </div>
       )}
-
-
     </section>
-
-
-
   );
 }
