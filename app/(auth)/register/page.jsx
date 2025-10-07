@@ -1,8 +1,9 @@
 'use client';
 
-import { registerUser } from '@/app/actions/auth/registerUser';
 import GoogleSigninBtn from '@/components/(root)/GoogleSigninBtn';
+import { signIn } from 'next-auth/react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 const UserIcon = () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
   <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
@@ -33,23 +34,48 @@ const CheckIcon = () => <svg xmlns="http://www.w3.org/2000/svg" width="12" heigh
   <polyline points="20,6 9,17 4,12"></polyline>
 </svg>;
 const RegisterPage = () => {
+
+  const router = useRouter();
+  const [form, setForm] = useState({ name: "", email: "", password: "" });
+
   const [showPassword, setShowPassword] = useState(false);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [fullName, setFullName] = useState('');
   const [isChecked, setIsChecked] = useState(false);
- 
+
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
-  const handleRegister = async (e) => {
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const name = fullName;
-    const userEmail = email;
-    const userPassword = password;
-    registerUser(name,userEmail, userPassword);
-    console.log("client",name,userEmail,userPassword);
-  }
+
+    const res = await fetch("/api/auth/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(form),
+    });
+
+    if (res.ok) {
+      // Auto sign-in the new user
+      const loginRes = await signIn("credentials", {
+        email: form.email,
+        password: form.password,
+        redirect: false,
+      });
+
+      // Check if login worked
+      if (!loginRes.error) {
+        router.push("/"); // redirect to home
+      } else {
+        alert("Account created, but auto login failed. Please login manually.");
+        router.push("/login");
+      }
+    } else {
+      const { error } = await res.json();
+      alert(error || "Something went wrong");
+    }
+  };
 
 
   return <div className="flex items-center min-h-screen justify-center">
@@ -69,10 +95,12 @@ const RegisterPage = () => {
           </p>
         </div>
 
-        <form onSubmit={handleRegister} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-4">
           { }
           <div className="space-y-2">
-            <input type="text" value={fullName} onChange={e => setFullName(e.target.value)} placeholder="Enter your full name" className="signin-input w-full px-3 py-2 bg-white dark:bg-black border border-gray-200 dark:border-gray-800 rounded-md text-sm text-gray-900 dark:text-gray-100 placeholder:text-gray-500 dark:placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-900 dark:focus:ring-gray-100 focus:border-transparent transition-all duration-200" />
+            <input type="text"
+              value={form.name}
+              onChange={e => setForm({ ...form, name: e.target.value })} placeholder="Enter your full name" className="signin-input w-full px-3 py-2 bg-white dark:bg-black border border-gray-200 dark:border-gray-800 rounded-md text-sm text-gray-900 dark:text-gray-100 placeholder:text-gray-500 dark:placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-900 dark:focus:ring-gray-100 focus:border-transparent transition-all duration-200" />
           </div>
 
           { }
@@ -81,7 +109,7 @@ const RegisterPage = () => {
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400 dark:text-gray-500">
                 <MailIcon />
               </div>
-              <input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="name@example.com" className="signin-input w-full pl-9 pr-3 py-2 bg-white dark:bg-black border border-gray-200 dark:border-gray-800 rounded-md text-sm text-gray-900 dark:text-gray-100 placeholder:text-gray-500 dark:placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-900 dark:focus:ring-gray-100 focus:border-transparent transition-all duration-200" />
+              <input type="email" value={form.email} onChange={e => setForm({ ...form, email: e.target.value })} placeholder="name@example.com" className="signin-input w-full pl-9 pr-3 py-2 bg-white dark:bg-black border border-gray-200 dark:border-gray-800 rounded-md text-sm text-gray-900 dark:text-gray-100 placeholder:text-gray-500 dark:placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-900 dark:focus:ring-gray-100 focus:border-transparent transition-all duration-200" />
             </div>
           </div>
 
@@ -91,7 +119,7 @@ const RegisterPage = () => {
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400 dark:text-gray-500">
                 <LockIcon />
               </div>
-              <input type={showPassword ? "text" : "password"} value={password} onChange={e => setPassword(e.target.value)} placeholder="Create a password" className="signin-input w-full pl-9 pr-10 py-2 bg-white dark:bg-black border border-gray-200 dark:border-gray-800 rounded-md text-sm text-gray-900 dark:text-gray-100 placeholder:text-gray-500 dark:placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-900 dark:focus:ring-gray-100 focus:border-transparent transition-all duration-200" />
+              <input type={showPassword ? "text" : "password"} value={form.password} onChange={e => setForm({ ...form, password: e.target.value })} placeholder="Create a password" className="signin-input w-full pl-9 pr-10 py-2 bg-white dark:bg-black border border-gray-200 dark:border-gray-800 rounded-md text-sm text-gray-900 dark:text-gray-100 placeholder:text-gray-500 dark:placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-900 dark:focus:ring-gray-100 focus:border-transparent transition-all duration-200" />
               <button type="button" onClick={togglePasswordVisibility} className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 transition-colors">
                 {showPassword ? <EyeOffIcon /> : <EyeIcon />}
               </button>

@@ -1,35 +1,38 @@
-import NextAuth from "next-auth"
-import Credentials from "next-auth/providers/credentials"
-import Google from "next-auth/providers/google"
+// auth.js
+import NextAuth from "next-auth";
+import Credentials from "next-auth/providers/credentials";
+import Google from "next-auth/providers/google";
+import dbConnect, { collectionNamesObj } from "@/lib/dbConnect"; // ✅ must exist
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
     Google,
     Credentials({
-      // You can specify which fields should be submitted, by adding keys to the `credentials` object.
-      // e.g. domain, username, password, 2FA token, etc.
       credentials: {
-        email: {},
-        password: {},
+        email: { label: "Email", type: "text" },
+        password: { label: "Password", type: "password" },
       },
       authorize: async (credentials) => {
-        let user = null
+        // ✅ Connect to DB
+        const usersCollection = await dbConnect(collectionNamesObj.usersCollection);
+        const user = await usersCollection.findOne({ email: credentials.email });
 
-        // logic to salt and hash password
-        const pwHash = saltAndHashPassword(credentials.password)
+        if (!user) throw new Error("No user found with this email");
+        if (credentials.password !== user.password)
+          throw new Error("Invalid password");
 
-        // logic to verify if the user exists
-        user = await getUserFromDb(credentials.email, pwHash)
-
-        if (!user) {
-          // No user found, so this is their first attempt to login
-          // Optionally, this is also the place you could do a user registration
-          throw new Error("Invalid credentials.")
-        }
-
-        // return user object with their profile data
-        return user
+        return {
+          id: user._id.toString(),
+          name: user.name,
+          email: user.email,
+        };
       },
     }),
   ],
-})
+
+  pages: {
+    signIn: "/login",
+  },
+
+  secret: process.env.AUTH_SECRET, // ✅ must be in your .env.local
+});
