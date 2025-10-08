@@ -2,6 +2,7 @@
 
 import React from "react";
 import { Clock, Shield, MessageSquare, Star, DollarSign } from "lucide-react";
+import Test from "../Test";
 
 export default function WhyChooseUsSection() {
   const benefits = [

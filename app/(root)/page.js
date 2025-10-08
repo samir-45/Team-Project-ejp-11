@@ -5,6 +5,7 @@ import Footer from "@/components/(root)/Footer";
 import HeroWithNav from "@/components/(root)/HeroWithNav";
 import ProjectsSection from "@/components/(root)/ProjectsSection";
 import WhyChooseUsSection from "@/components/(root)/WhyChooseUsSection";
+import Test from "@/components/Test";
 
 export default async function Home() {
   return (
@@ -25,6 +26,7 @@ export default async function Home() {
       <div>
         <WhyChooseUsSection />
       </div>
+      <Test />
       {/* Middle components and elements end */}
       <div className="px-4 sm:px-6 lg:px-8 py-5">
         <Footer />
