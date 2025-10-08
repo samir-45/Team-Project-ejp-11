@@ -25,10 +25,44 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           id: user._id.toString(),
           name: user.name,
           email: user.email,
+          role: user.role || "user",   // ✅ attach role here
         };
       },
     }),
   ],
+
+  callbacks: {
+    async jwt({ token, user }) {
+      // If user just signed in, attach email
+      if (user) {
+        token.email = user.email;
+      }
+
+      // Always fetch role from DB by email
+      if (token.email) {
+        const usersCollection = await dbConnect(collectionNamesObj.usersCollection);
+        const dbUser = await usersCollection.findOne({ email: token.email });
+
+        if (dbUser) {
+          token.role = dbUser.role; // ✅ attach role
+          token.name = dbUser.name;
+        }
+      }
+
+      return token;
+    },
+
+    async session({ session, token }) {
+      if (token) {
+        session.user.email = token.email;
+        session.user.name = token.name;
+        session.user.role = token.role; // ✅ role now always available
+      }
+      return session;
+    },
+  },
+
+
 
   pages: {
     signIn: "/login",
