@@ -3,135 +3,124 @@
 import React from "react";
 import { Users, CheckCircle, Trophy, Smile } from "lucide-react";
 
-/**
- * @fileoverview AboutUsSection component featuring introductory text,
- * a call-to-action button, and key statistics using daisyUI's stats component.
- * It follows the structure and dark theme established by FeaturedServices.jsx.
- */
-
 export default function AboutUsSection() {
-  // Key statistics data for the hub
-  const statsData = [
+  const stats = [
     {
-      icon: <Users className="w-6 h-6 text-orange-500" />,
-      value: "4.5K+",
+      icon: Users,
+      value: "4.5k+",
       title: "Active Users",
       desc: "Professionals & Clients",
     },
     {
-      icon: <CheckCircle className="w-6 h-6 text-orange-500" />,
-      value: "10K+",
+      icon: CheckCircle,
+      value: "10k+",
       title: "Completed Jobs",
       desc: "Tasks managed successfully",
     },
     {
-      icon: <Trophy className="w-6 h-6 text-orange-500" />,
+      icon: Trophy,
       value: "95%",
-      title: "Positive Ratings",
+      title: "Satisfaction",
       desc: "Average satisfaction score",
     },
     {
-      icon: <Smile className="w-6 h-6 text-orange-500" />,
-      value: "1.2K+",
+      icon: Smile,
+      value: "1.2k+",
       title: "Verified Providers",
       desc: "Trusted local experts",
     },
   ];
 
   return (
-    <section className="py-12 md:py-24">
-      <div className="mx-auto px-4 sm:px-6 lg:px-12">
-        {/* === Header & Article Content Block === */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center mb-16">
-          {/* Left Side: Text Content (Matching the image's text style) */}
-          <div className="lg:max-w-xl">
-            {/* Subtitle */}
-            <p className="text-orange-500 font-semibold text-base mb-3 flex items-center gap-2">
+    <section className="py-16 md:py-24">
+      <div className="px-4 sm:px-6 lg:px-8">
+        {/* content */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center mb-12">
+          {/* left: copy on creamy bg - dark text */}
+          <div>
+            <p className="text-orange-400 font-semibold text-sm mb-2 flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-orange-500"></span>
               About the Hub
             </p>
 
-            {/* Main Title */}
-            <h2 className="text-4xl sm:text-5xl font-extrabold text-gray-800/80 leading-tight mb-6">
-              Committed To Quality Matchmaking And Dependable Local Service.
+            <h2 className="text-4xl sm:text-5xl font-extrabold text-gray-900 leading-tight mb-5">
+              Committed to quality matchmaking and dependable local service.
             </h2>
 
-            {/* Body Text / Article */}
-            <p className="text-zinc-400 text-lg mb-8 leading-relaxed">
-              Our platform is the backbone of local service exchange. We connect
-              neighbors with certified, reviewed professionals instantly. From
-              booking to payment and real-time chat, we eliminate friction,
-              ensuring every project, big or small, is handled with
-              dependability and expert workmanship. We're building a stronger,
-              more efficient local economy, one successful service booking at a
-              time.
+            <p className="text-gray-700 text-lg leading-relaxed mb-8">
+              Our platform connects neighbors with certified, reviewed
+              professionals. From booking to payment and real-time chat, we
+              remove friction so every project is handled with care and
+              competence.
             </p>
 
-            {/* Call to Action Button (Matching the style of the reference image) */}
             <a
               href="/about"
-              className="btn bg-orange-600 text-white border-none hover:bg-orange-700 transition-colors duration-300 rounded-lg shadow-lg text-base px-8 py-3"
+              className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-orange-500 to-amber-500 px-8 py-3 font-semibold text-white shadow-md transition-opacity hover:opacity-90"
             >
               More About Us
             </a>
           </div>
 
-          {/* Right Side: Secondary Article/Value Proposition (Filling the "image" gap) */}
-          <div className="p-8 bg-zinc-800 rounded-xl shadow-2xl border border-zinc-700/50">
-            <h3 className="text-2xl font-bold text-white mb-4">
-              Seamless Local Commerce
-            </h3>
+          {/* right: single dark surface card */}
+          <div className="p-6 rounded-xl bg-[#111113] text-white border border-white/10 backdrop-blur">
+            <h3 className="text-2xl font-bold mb-5">Seamless Local Commerce</h3>
             <ul className="space-y-4 text-zinc-300">
               <li className="flex items-start gap-3">
-                <CheckCircle className="w-5 h-5 mt-1 flex-shrink-0 text-orange-500" />
+                <CheckCircle
+                  className="w-5 h-5 mt-1 text-orange-500"
+                  aria-hidden="true"
+                />
                 <div>
-                  <strong className="text-white">Real-Time Chat:</strong>{" "}
-                  Integrated Socket.io messaging lets you discuss project
-                  details, scope, and pricing directly with the service provider
+                  <strong className="text-white">Real-time chat:</strong>{" "}
+                  Socket.io messaging to align on scope, timing, and pricing
                   instantly.
                 </div>
               </li>
               <li className="flex items-start gap-3">
-                <CheckCircle className="w-5 h-5 mt-1 flex-shrink-0 text-orange-500" />
+                <CheckCircle
+                  className="w-5 h-5 mt-1 text-orange-500"
+                  aria-hidden="true"
+                />
                 <div>
                   <strong className="text-white">
-                    Verified Ratings & Reviews:
+                    Verified ratings & reviews:
                   </strong>{" "}
-                  Trust is paramount. All providers are rated on
-                  professionalism, punctuality, and quality of work.
+                  Clarity on professionalism, punctuality, and quality.
                 </div>
               </li>
               <li className="flex items-start gap-3">
-                <CheckCircle className="w-5 h-5 mt-1 flex-shrink-0 text-orange-500" />
+                <CheckCircle
+                  className="w-5 h-5 mt-1 text-orange-500"
+                  aria-hidden="true"
+                />
                 <div>
-                  <strong className="text-white">Portfolio Management:</strong>{" "}
-                  Providers showcase their best work and certifications, making
-                  it easy for you to hire with confidence.
+                  <strong className="text-white">Provider portfolios:</strong>{" "}
+                  Proof of work and certifications to hire with confidence.
                 </div>
               </li>
             </ul>
           </div>
         </div>
 
-        {/* === Statistics Section (using daisyUI stats component) === */}
-        <div className="stats stats-vertical lg:stats-horizontal w-full bg-zinc-800 text-white shadow-xl rounded-xl border border-zinc-700/50">
-          {statsData.map((stat, index) => (
+        {/* stats: dark mini-cards over creamy body */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+          {stats.map((stat, index) => (
             <div
               key={index}
-              className={`stat ${
-                index < statsData.length - 1
-                  ? "border-r border-zinc-700/50"
-                  : ""
-              }`}
+              className="rounded-xl border border-white/10 bg-[#111113] p-6 text-white"
             >
-              <div className="stat-figure text-orange-500">{stat.icon}</div>
-              <div className="stat-title text-zinc-400 text-sm">
+              <div className="flex items-center gap-4">
+                <stat.icon
+                  className="h-7 w-7 text-orange-500"
+                  aria-hidden="true"
+                />
+                <p className="text-3xl font-bold sm:text-4xl">{stat.value}</p>
+              </div>
+              <p className="mt-3 text-base font-semibold text-zinc-300">
                 {stat.title}
-              </div>
-              <div className="stat-value text-3xl sm:text-4xl text-white">
-                {stat.value}
-              </div>
-              <div className="stat-desc text-zinc-500 mt-1">{stat.desc}</div>
+              </p>
+              <p className="mt-1 text-sm text-zinc-500">{stat.desc}</p>
             </div>
           ))}
         </div>

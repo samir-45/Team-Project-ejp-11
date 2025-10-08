@@ -2,7 +2,7 @@
 
 import React from "react";
 import { Clock, Shield, MessageSquare, Star, DollarSign } from "lucide-react";
-import Test from "../Test";
+
 
 export default function WhyChooseUsSection() {
   const benefits = [
@@ -37,56 +37,68 @@ export default function WhyChooseUsSection() {
     <section className="py-12 md:py-24">
       <div className="mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
+          {/* Left Content */}
           <div className="lg:sticky lg:top-24 lg:pt-12">
             <p className="text-orange-500 font-semibold text-base mb-3 flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-orange-500"></span>
               Why Choose Us
             </p>
 
-            <h2 className="text-4xl sm:text-5xl font-extrabold leading-tight mb-8">
+            <h2 className="text-4xl sm:text-5xl font-extrabold leading-tight mb-8 text-gray-900">
               Enjoy Fast, Reliable Service, Expert Solutions, And Long-Term
               Value All The Benefits You Need, Right At Your Fingertips.
             </h2>
 
-            <p className="text-zinc-900 text-lg leading-relaxed mb-8">
+            <p className="text-gray-700 text-lg leading-relaxed mb-8">
               We are more than just a listing platform; we are a complete
               ecosystem designed for efficient, trustworthy local commerce.
-              Every feature, from our <strong>real-time chat</strong> to our{" "}
-              <strong>verified review system</strong>, is built to protect you
-              and guarantee satisfaction.
+              Every feature, from our{" "}
+              <strong className="text-orange-500">real-time chat</strong> to our{" "}
+              <strong className="text-orange-500">
+                verified review system
+              </strong>
+              , is built to protect you and guarantee satisfaction.
             </p>
 
             <a
               href="/register"
-              className="btn bg-gradient-to-r from-orange-500 to-amber-500 text-white border-none hover:opacity-90 transition duration-300 rounded-full shadow-md text-base px-8 py-3"
+              className="inline-flex bg-gradient-to-r from-orange-500 to-amber-500 text-white border-none hover:opacity-90 transition duration-300 rounded-full shadow-md text-base px-8 py-3 font-semibold"
             >
               Join the Community Today
             </a>
           </div>
 
+          {/* Right Content - Benefits Timeline */}
           <div className="pt-8">
-            <ul className="timeline timeline-vertical">
+            <ul className="space-y-8">
               {benefits.map((benefit, index) => (
-                <li key={index}>
-                  <div className="timeline-middle bg-orange-500 p-3 rounded-full shadow-lg">
-                    {benefit.icon}
+                <li key={index} className="flex gap-6 group">
+                  {/* Number and Connector */}
+                  <div className="flex flex-col items-center">
+                    <div className="w-12 h-12 rounded-full bg-gradient-to-r from-orange-500 to-amber-500 flex items-center justify-center text-white font-bold text-lg z-10">
+                      {index + 1}
+                    </div>
+                    {index < benefits.length - 1 && (
+                      <div className="flex-1 w-0.5 bg-zinc-300 mt-4"></div>
+                    )}
                   </div>
 
-                  <div className="timeline-end timeline-box bg-[#0f0f11] text-white shadow-xl p-6 rounded-xl border border-zinc-800 hover:border-orange-500 transition duration-300">
-                    <h3 className="text-xl font-bold mb-2 text-white flex items-center gap-3">
-                      <span className="text-orange-400 font-extrabold text-2xl w-8 h-8 flex items-center justify-center bg-zinc-800 rounded-lg border border-zinc-700">
-                        {index < 9 ? `0${index + 1}` : index + 1}
-                      </span>
-                      {benefit.title}
-                    </h3>
-                    <p className="text-zinc-400 leading-relaxed mt-2">
-                      {benefit.desc}
-                    </p>
+                  {/* Content Card */}
+                  <div className="flex-1 bg-white rounded-2xl shadow-lg border border-zinc-200 p-6 group-hover:shadow-xl transition-all duration-300 mb-4">
+                    <div className="flex items-start gap-4">
+                      <div className="bg-gradient-to-r from-orange-500 to-amber-500 p-3 rounded-2xl shadow-md">
+                        {benefit.icon}
+                      </div>
+                      <div className="flex-1">
+                        <h3 className="text-xl font-bold text-gray-900 mb-2">
+                          {benefit.title}
+                        </h3>
+                        <p className="text-gray-600 leading-relaxed">
+                          {benefit.desc}
+                        </p>
+                      </div>
+                    </div>
                   </div>
-
-                  {index < benefits.length - 1 && (
-                    <hr className="bg-zinc-700 h-1" />
-                  )}
                 </li>
               ))}
             </ul>
