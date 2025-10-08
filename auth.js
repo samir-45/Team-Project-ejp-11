@@ -44,9 +44,10 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         const dbUser = await usersCollection.findOne({ email: token.email });
 
         if (dbUser) {
-          token.role = dbUser.role; // ✅ attach role
+          token.role = (dbUser.role || "user").toLowerCase(); // normalize
           token.name = dbUser.name;
         }
+
       }
 
       return token;
