@@ -2,7 +2,7 @@
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import Google from "next-auth/providers/google";
-import dbConnect, { collectionNamesObj } from "@/lib/dbConnect"; // ✅ must exist
+import dbConnect, { collectionNamesObj } from "@/lib/dbConnect";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
@@ -13,7 +13,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         password: { label: "Password", type: "password" },
       },
       authorize: async (credentials) => {
-        // ✅ Connect to DB
+        // Connect to DB
         const usersCollection = await dbConnect(collectionNamesObj.usersCollection);
         const user = await usersCollection.findOne({ email: credentials.email });
 
@@ -25,14 +25,49 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           id: user._id.toString(),
           name: user.name,
           email: user.email,
+          role: user.role || "user",   // ✅ attach role here
         };
       },
     }),
   ],
 
+  callbacks: {
+    async jwt({ token, user }) {
+      // If user just signed in, attach email
+      if (user) {
+        token.email = user.email;
+      }
+
+      // Always fetch role from DB by email
+      if (token.email) {
+        const usersCollection = await dbConnect(collectionNamesObj.usersCollection);
+        const dbUser = await usersCollection.findOne({ email: token.email });
+
+        if (dbUser) {
+          token.role = (dbUser.role || "user").toLowerCase(); // normalize
+          token.name = dbUser.name;
+        }
+
+      }
+
+      return token;
+    },
+
+    async session({ session, token }) {
+      if (token) {
+        session.user.email = token.email;
+        session.user.name = token.name;
+        session.user.role = token.role; // ✅ role now always available
+      }
+      return session;
+    },
+  },
+
+
+
   pages: {
     signIn: "/login",
   },
 
-  secret: process.env.AUTH_SECRET, // ✅ must be in your .env.local
+  secret: process.env.AUTH_SECRET,
 });
