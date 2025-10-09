@@ -7,6 +7,7 @@ import HeroWithNav from "@/components/(root)/HeroWithNav";
 import ProjectsSection from "@/components/(root)/ProjectsSection";
 import WhyChooseUsSection from "@/components/(root)/WhyChooseUsSection";
 
+
 export default async function Home() {
   return (
     <div className="min-h-screen mx-auto ">
@@ -26,8 +27,10 @@ export default async function Home() {
       <div>
         <WhyChooseUsSection />
       </div>
-      <div>
-        <FaqAskSection />
+      
+      {/* Middle components and elements end */}
+      <div className="px-4 sm:px-6 lg:px-8 py-5">
+        <Footer />
       </div>
     </div>
   );
